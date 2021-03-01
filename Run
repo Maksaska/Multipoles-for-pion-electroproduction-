@@ -1,0 +1,5 @@
+#!/bin/sh  
+g++ -o P1 P1.cpp `root-config --cflags --libs` -O3;
+./P1 > table.csv
+
+
