@@ -37,7 +37,8 @@ double Gamma_PiN(const double& W, vector<double>& P, const int& l)
 
 double Gamma_in(const double& W, vector<double>& P, const int& l)
 {
-	return (1 - P[2])*P[1]*pow((q2p(W)/q2p(P[0])),2*l+4)*pow(((X*X + q2p(P[0])*q2p(P[0]))/(X*X + q2p(W)*q2p(W))),l+2);
+	if(W >= 1.22){return (1 - P[2])*P[1]*pow((q2p(W)/q2p(P[0])),2*l+4)*pow(((X*X + q2p(P[0])*q2p(P[0]))/(X*X + q2p(W)*q2p(W))),l+2);}
+	return 0;
 }
 
 double Gamma_eta(const double& W, vector<double>& P, const int& l)
@@ -50,17 +51,17 @@ double Gamma_tot(const double& W, vector<double>& P, vector<int>& I)
 	if(I[2] == 1)
 	{
 		return Gamma_PiN(W, P, I[1]) + Gamma_in(W, P, I[1]) + Gamma_eta(W, P, I[1]);
-	}
+	} 
 	
 	return Gamma_PiN(W, P, I[1]) + Gamma_in(W, P, I[1]);
 }
 
-double f_PiN(const double& W, vector<double>& P, vector<int>& I)
-{
-	return sqrt(Gamma_PiN(W, P, I[1])*(k(W)/q(W))*(Mp/W)/((I[0]+1)*M_PI*Gamma_tot(W, P, I)*Gamma_tot(W, P, I)));
+double f_PiN(const double& W, vector<double>& P, vector<int>& I, const double& Q2) 
+{ 
+	return sqrt(Gamma_PiN(W, P, I[1])*(k_mod(W,Q2)/q(W))*(Mp/W)/((I[0]+1)*M_PI*Gamma_tot(W, P, I)*Gamma_tot(W, P, I)));
 }
 
-double f_gN(const double& W, const double& WR, const int& n)
+double f_gN(const double& W, const double& WR, const int& n, const double& Q2) 
 {
-	return pow(k(W)/k(WR), n)*((X*X + k(WR)*k(WR))/(X*X + k(W)*k(W)));
+	return pow(k_mod(W,Q2)/k_mod(WR,Q2), n)*((X*X + k_mod(WR,Q2)*k_mod(WR,Q2))/(X*X + k_mod(W,Q2)*k_mod(W,Q2)));
 }

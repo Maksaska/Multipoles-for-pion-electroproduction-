@@ -29,8 +29,8 @@ double Gamma_eta(const double& W, vector<double>& P, const int& l); // partial w
 double Gamma_tot(const double& W, vector<double>& P, vector<int>& I); // total partial width
 double k(const double& W); // Photon momentum; Q2 = 0
 double k_mod(const double& W, const double& Q2); // Photon momentum; Q2 != 0
-double f_PiN(const double& W, vector<double>& P, vector<int>& I); // Breit-Wigner factor describing the decay of the N*resonance
-double f_gN(const double& W, const double& WR, const int& n); //Parametrization of the yNN* vertex beyond the resonance peak
+double f_PiN(const double& W, vector<double>& P, vector<int>& I, const double& Q2); // Breit-Wigner factor describing the decay of the N*resonance
+double f_gN(const double& W, const double& WR, const int& n, const double& Q2); //Parametrization of the yNN* vertex beyond the resonance peak
 
 /*P33 resonance*/
 
