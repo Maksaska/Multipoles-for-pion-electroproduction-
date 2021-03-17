@@ -31,6 +31,14 @@ int main(int argc, char **argv)
 		P33.clear();		
 	}
 	
+	if(Contributions[2])
+	{
+		vector<vector<double>> P11; 
+		P11_table(P11, Area, Parameters[0]);
+		Merge(Multipoles, P11);
+		P11.clear();		
+	}
+	
 	PrintCSV(Multipoles, Parameters);
 	Area.clear(); Contributions.clear(); Parameters.clear(); 
 	Multipoles.clear();

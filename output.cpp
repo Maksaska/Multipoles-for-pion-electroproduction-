@@ -4,7 +4,7 @@
 
 using namespace std; 
 
-const double Mpip(0.13957);
+const double Mpip(0.13957), Mp(0.93827);
 
 void Reading(string Path,vector<vector<double>>& V2)
 {
@@ -79,7 +79,7 @@ void Merge(vector<vector<double>>& V, vector<vector<double>>& A)
 
 void PrintCSV(vector<vector<double>>& V, vector<int>& P) 
 {
-	double Const(1); long unsigned int j_1, j_2;
+	double Const(1), C_L(1); long unsigned int j_1, j_2;
 	
 	string Sh = "All multipoles are in 1/GeV";
 	
@@ -127,14 +127,16 @@ void PrintCSV(vector<vector<double>>& V, vector<int>& P)
 		File << i << "_Re," << i << "_Im,";
 	}
 	
-	File << "S0+_Re,0_Im" << ","; 
+	if(P[3] == 0){File << "S0+_Re,0_Im" << ",";}
+	else{File << "L0+_Re,0_Im" << ",";}									
 	
 	for(int i = 1; i < (P[0]+1); i++)
 	{
 		File << i << "_Re," << i << "_Im,";
 	}
 	
-	File << "S0-_Re,0_Im" << ","; 
+	if(P[3] == 0){File << "S0-_Re,0_Im" << ",";}
+	else{File << "L0-_Re,0_Im" << ",";}	
 	
 	for(int i = 1; i < (P[0]+1); i++)
 	{
@@ -147,7 +149,8 @@ void PrintCSV(vector<vector<double>>& V, vector<int>& P)
 		File << V[i][0] << "," << V[i][1] << ","; 
 		for(long unsigned int j = j_1; j < j_2; j++)
 		{
-			File << Const*V[i][j] << ",";
+		if(j >= j_1 + 8*(P[0]+1) and P[3] == 1){C_L = (V[i][0]*V[i][0] - Mp*Mp - V[i][1])/(2*V[i][0]*k_mod(V[i][0],V[i][1]));}
+			File << C_L*Const*V[i][j] << ","; C_L = 1;
 		}
 		File << endl;	
 	} 
@@ -161,7 +164,8 @@ void PrintCSV(vector<vector<double>>& V, vector<int>& P)
 			File << V[i][0] << "," << V[i][1] << ","; 
 			for(long unsigned int j = j_1; j < j_2; j++)
 			{
-				File << Const*V[i][j] << ",";
+			if(j >= j_1 + 8*(P[0]+1) and P[3] == 1){C_L = (V[i][0]*V[i][0] - Mp*Mp - V[i][1])/(2*V[i][0]*k_mod(V[i][0],V[i][1]));}
+				File << C_L*Const*V[i][j] << ","; C_L = 1;
 			}
 			File << endl;	
 		}
@@ -270,6 +274,9 @@ void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2)
 	cout << "P33(1232):"; 
 	value = Response(); P1.push_back(value);
 	
+	cout << "P11(1440):"; 
+	value = Response(); P1.push_back(value);
+	
 	cout << "\n\nEnter the max value of orbital momentum.\nl = ";
 	
 	while(l < 0)
@@ -289,6 +296,13 @@ cin >>l; if(l != 0 and l != 1 and l != 2){ cout << "\nCan't recognize your respo
 	while(l != 0 and l != 1)
 	{
 cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(1/GeV - 0 or 10^-3/MPi+ - 1)\nAnswer:";}
-	} P2.push_back(l); cout << endl;	
+	} P2.push_back(l); cout << endl; l = -1;
+	
+	cout << "Select multipole set: EMS - 0 or EML - 1\nAnswer:";
+	
+	while(l != 0 and l != 1)
+	{
+cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(EMS - 0 or EML - 1)\nAnswer:";}
+	} P2.push_back(l); cout << endl; 	
 	
 }

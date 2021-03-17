@@ -96,15 +96,15 @@ vector<complex<double>> mult_delta(const double& W, const double& Q2) // M first
 	P.push_back(1.235); P.push_back(0.13); P.push_back(1); 
 	I.push_back(3); I.push_back(1); I.push_back(0); I.push_back(2);
 	
-	buff = 323*f_gN(W,P[0],2,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2)); 	
+	buff = 0.323*f_gN(W,P[0],2,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2)); 	
 	res.push_back(buff); I.clear();
 	
 	I.push_back(3); I.push_back(1); I.push_back(0); I.push_back(1); mult = "E";
-	buff = -17*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2));
+	buff = -0.017*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2));
 	res.push_back(buff);
 	
 	mult = "L";
-	buff = -17*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2)); // This is S1+
+	buff = -0.017*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*sqrt(1.5)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_delta(W,Q2,mult))*(k_mod(W, Q2)/k(W))*exp(-0.24*Q2)*FD(Q2)*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/(pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2)); // This is S1+
 	res.push_back(buff);
 	
 	P.clear(); I.clear();

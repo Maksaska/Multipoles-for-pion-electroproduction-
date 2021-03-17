@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp output.cpp Born.cpp delta.cpp general.cpp
+SOURCES=main.cpp output.cpp Born.cpp delta.cpp P11.cpp general.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=start
 

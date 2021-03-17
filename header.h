@@ -39,6 +39,12 @@ double phi_delta(const double& W, const double& Q2, const string& mult); // phas
 vector<complex<double>> mult_delta(const double& W, const double& Q2); // Multipoles evaluation 
 void P33_table(vector<vector<double>>& Result, vector<double>& WQ2, int l_max); // This function provide with the table of multipoles for given (W, Q2) grid (P33 - resonance)
 
+/*P11 resonance*/
+
+double phi_P11(const double& W, const double& Q2); // phase function 
+complex<double> mult_P11(const double& W, const double& Q2); // Multipoles evaluation pM1-(1/2)
+void P11_table(vector<vector<double>>& Result, vector<double>& WQ2, int l_max); // This function provide with the table of multipoles for given (W, Q2) grid (P11 - resonance)
+
 /*Born terms*/
 
 double F1p_f(const double& Q2); //Form-factors
