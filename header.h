@@ -4,22 +4,33 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <complex>
-
+#include <ctime>
+#include "TLorentzVector.h"
 
 using namespace std;
+
+constexpr std::complex<double> operator""_i(unsigned long long d)
+{
+    return std::complex<double>{0.0, static_cast<double>(d)};
+}
+constexpr std::complex<double> operator""_i(long double d)
+{
+    return std::complex<double>{0.0, static_cast<double>(d)};
+}
 
 /*Output file*/
 
 void Reading(string Path,vector<vector<double>>& V2); // Reading function for csv double grid
 void PrintBiggy(vector<vector<double>>& V); //Output function
 bool Response(); // "yes" or "no" response recognition algorithm
-void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2);	// Greetings and input parameters
+void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2, int &B);	// Greetings and input parameters
 void Initialization(vector<vector<double>>& V, vector<double>& WQ2, int l); // Initialization of the final table
 void Merge(vector<vector<double>>& V, vector<vector<double>>& A); // Combining the final table and the selected contribution 
 void PrintCSV(vector<vector<double>>& V, vector<int>& P); // Output procedure
 
 /*general.cpp*/
 
+double fRand(const double& fMin, const double& fMax); // Random function with max resolution
 double q(const double& W); // Pion momentum
 double q2p(const double& W); // Double pion momentum
 double qeta(const double& W); // Eta momentum
@@ -71,3 +82,11 @@ vector<vector<double>> EMS(const double& W, const double& Q2, const double& thet
 
 void Born_table(vector<vector<double>>& Result, vector<double>& WQ2, int l_max);
 // This function provide with the table of multipoles for given (W, Q2) grid (Born terms)
+
+/* Generator.cpp*/
+
+double P(const int& der,const int& n, double& theta); //legendre polynomials P(cos)n
+vector<complex<double>> Merger(const double& W,  const double& Q2); // Multipoles compound
+vector<complex<double>> Helicity_amplitudes(const double& W,  const double& Q2, const double& theta); // Helicity amplitudes evaluation for chosen contributions
+double Section(const double& W,  const double& Q2, const double& theta,  const double& phi, const double& E0); // diff section evaluation
+void Generate_lund(vector<double>& V, int chanel); // Main sequence for generator

@@ -5,6 +5,12 @@ using namespace std;
 
 const double Mp(0.93827), Mn(0.93957), Mpip(0.13957), Mpiz(0.13498), X(0.5), Meta(0.547);
 
+double fRand(const double& fMin, const double& fMax)
+{
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+
 double q(const double& W)
 {
 	return sqrt((W*W + Mpip*Mpip - Mp*Mp)*(W*W + Mpip*Mpip - Mp*Mp)/(4*W*W) - Mpip*Mpip);

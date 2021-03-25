@@ -49,9 +49,9 @@ void Initialization(vector<vector<double>>& V, vector<double>& WQ2, int l)
 {
 	vector<double> buff; 
 	
-	for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
+	for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])
 	{
-		for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])
+		for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
 		{
 			buff.push_back(W);
 			buff.push_back(Q2);
@@ -216,11 +216,24 @@ bool Response()
 	}
 }
 
-void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2) 	
+void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2, int &B) 	
 {
-	double buff(0), buff_2; bool value; int l(-1);
+	double buff(0), buff_2; bool value; int l(-1);  
 	cout << " ------------------------------------------------------------------- " << endl;
-	cout << "| Welcome to the multipole evaluation program for the pion       | \n| electroproduction!                                       |       \n|                                                                   |\n|     Authors: Davydov M. - MSU, Physics dep.                       |\n|              Isupov E.  - MSU, SINP                               |\n|                                                   Version 0.0    |\n| https://github.com/Maksaska/none |\n ------------------------------------------------------------------- " << endl;
+	cout << "| Welcome to the multipole evaluation program for the pion       | \n| electroproduction!                                       |       \n|                                                                   |\n|     Authors: Davydov M. - MSU, Physics dep.                       |\n|              Isupov E.  - MSU, SINP                               |\n|                                                   Version 1.0    |\n| https://github.com/Maksaska/none |\n ------------------------------------------------------------------- " << endl;
+	
+	cout << endl;
+	
+	cout << "What do you want?\nCSV table with multipoles:";
+	value = Response();
+	
+	if(!value)
+	{
+		cout << "PiN event generator:";
+		value = Response(); B = 1;
+	}
+	
+	if(!value){return;}
 	
 	cout << endl;
 	
@@ -238,12 +251,15 @@ void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2)
 		cin >> buff; if(buff < buff_2){cout << "\nYour W_max < W_min. Try again.\nW_max = ";}	
 	} V.push_back(buff); buff = 0;
 	
-	cout << "Increment of W: ";
-	
-	while(buff <= 0)
+	if(B == 0)
 	{
-		cin >> buff; if(buff <= 0){cout << "\nIncorrect value. Try again.\nIncrement of W: ";} 	
-	} V.push_back(buff); cout << endl; buff = 0;
+		cout << "Increment of W: "; 
+	
+		while(buff <= 0)
+		{
+			cin >> buff; if(buff <= 0){cout << "\nIncorrect value. Try again.\nIncrement of W: ";} 	
+		} V.push_back(buff); cout << endl; buff = 0;
+	}	
 
 	cout << "Q2_min = ";	
 	
@@ -259,50 +275,73 @@ void Greetings(vector<double>& V, vector<bool>& P1, vector<int>& P2)
 		cin >> buff; if(buff < buff_2){cout << "\nYour Q2_max < Q2_min. Try again.\nQ2_max = ";}	
 	} V.push_back(buff); buff = 0;
 	
-	cout << "Increment of Q2: ";
-	
-	while(buff <= 0)
+	if(B == 0)
 	{
-		cin >> buff; if(buff <= 0){cout << "\nIncorrect value. Try again.\nIncrement of Q2: ";} 	
-	} V.push_back(buff); cout << endl; buff = 0;
+		cout << "Increment of Q2: ";
 		
-	cout << "\n";
+		while(buff <= 0)
+		{
+			cin >> buff; if(buff <= 0){cout << "\nIncorrect value. Try again.\nIncrement of Q2: ";} 	
+		} V.push_back(buff); cout << endl; buff = 0;
+	}
 	
-	cout << "What are we going to include?\nBorn terms:";
-	value = Response(); P1.push_back(value);
-	
-	cout << "P33(1232):"; 
-	value = Response(); P1.push_back(value);
-	
-	cout << "P11(1440):"; 
-	value = Response(); P1.push_back(value);
-	
-	cout << "\n\nEnter the max value of orbital momentum.\nl = ";
-	
-	while(l < 0)
+	if(B == 0)
 	{
-		cin >> l; if(l < 0){ cout << "\nYou need at least one member of a row (l >= 0). Try again.\nl = ";} 	
-	} P2.push_back(l); cout << endl; l = -1;
+		cout << "\n";
+		
+		cout << "What are we going to include?\nBorn terms:";
+		value = Response(); P1.push_back(value); if(value){l++;}
+		
+		cout << "P33(1232):"; 
+		value = Response(); P1.push_back(value); if(value){l++;}
+		
+		cout << "P11(1440):"; 
+		value = Response(); P1.push_back(value); if(value){l++;}	
+		
+		if(l == -1){return;} 
+		
+		l = -1;	
+	}	
 	
-	cout << "Choose the channel:\t\t(Pi0p - 0, Pi+n - 1, Both - 2)\nAnswer:";
-	
-	while(l != 0 and l != 1 and l != 2)
+	if(B == 0)
 	{
-cin >>l; if(l != 0 and l != 1 and l != 2){ cout << "\nCan't recognize your response. Try again.\t\t(Pi0p - 0, Pi+n - 1, Both - 2)\n Answer:";}
-	} P2.push_back(l); cout << endl; l = -1;
+		cout << "\n\nEnter the max value of orbital momentum.\nl = ";
 	
-	cout << "Select multipole units: 1/GeV - 0 or 10^-3/MPi+ - 1\nAnswer:";
+		while(l < 0)
+		{
+			cin >> l; if(l < 0){ cout << "\nYou need at least one member of a row (l >= 0). Try again.\nl = ";} 	
+		} P2.push_back(l); cout << endl; l = -1;
+		
+		cout << "Choose the channel:\t\t(Pi0p - 0, Pi+n - 1, Both - 2)\nAnswer:";
+		
+		while(l != 0 and l != 1 and l != 2)
+		{
+	cin >>l; if(l != 0 and l != 1 and l != 2){ cout << "\nCan't recognize your response. Try again.\t\t(Pi0p - 0, Pi+n - 1, Both - 2)\n Answer:";}
+		} P2.push_back(l); cout << endl; l = -1;
+		
+		cout << "Select multipole units: 1/GeV - 0 or 10^-3/MPi+ - 1\nAnswer:";
 
-	while(l != 0 and l != 1)
-	{
-cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(1/GeV - 0 or 10^-3/MPi+ - 1)\nAnswer:";}
-	} P2.push_back(l); cout << endl; l = -1;
-	
-	cout << "Select multipole set: EMS - 0 or EML - 1\nAnswer:";
-	
-	while(l != 0 and l != 1)
-	{
-cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(EMS - 0 or EML - 1)\nAnswer:";}
-	} P2.push_back(l); cout << endl; 	
+		while(l != 0 and l != 1)
+		{
+	cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(1/GeV - 0 or 10^-3/MPi+ - 1)\nAnswer:";}
+		} P2.push_back(l); cout << endl; l = -1;
+		
+		cout << "Select multipole set: EMS - 0 or EML - 1\nAnswer:";
+		
+		while(l != 0 and l != 1)
+		{
+	cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(EMS - 0 or EML - 1)\nAnswer:";}
+		} P2.push_back(l); cout << endl;
+	} 
+
+	if(B == 1)
+	{	
+		cout << "Choose the channel:\t\t(Pi0p - 0, Pi+n - 1)\nAnswer:";
+		
+		while(l != 0 and l != 1)
+		{
+	cin >>l; if(l != 0 and l != 1){ cout << "\nCan't recognize your response. Try again.\t\t(Pi0p - 0, Pi+n - 1)\n Answer:";}
+		} P2.push_back(l); cout << endl; l = -1; P1.push_back(true);
+	} 	
 	
 }

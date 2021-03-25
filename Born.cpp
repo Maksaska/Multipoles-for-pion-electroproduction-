@@ -277,9 +277,9 @@ void Born_table(vector<vector<double>>& Result, vector<double>& WQ2, int l_max)
 	vector<double> buff;
 	double theta(0), c; c = sqrt(2);
 	
-	for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
+	for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])	
 	{
-		for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])
+		for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
 		{
 			M1 = EMS(W, Q2, theta, l_max+1, 0);			
 			M2 = EMS(W, Q2, theta, l_max+1, 1);			

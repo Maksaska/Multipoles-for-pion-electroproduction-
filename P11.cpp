@@ -1,5 +1,6 @@
 #include <iostream> 
 #include "header.h"
+#include <complex>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ complex<double> mult_P11(const double& W, const double& Q2)
 	P.push_back(1.44); P.push_back(0.35); P.push_back(0.7); 
 	I.push_back(1); I.push_back(1); I.push_back(0); I.push_back(1);
 	
-	buff = 0.078*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*Gamma_tot(W,P,I)*P[0]*exp(1i*phi_P11(W,Q2))*(k_mod(W, Q2)/k(W))*exp(-Q2/(6*0.229*0.229))*(P[0]*P[0] - W*W + 1i*P[0]*Gamma_tot(W,P,I))/((pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2))*sqrt(3)); 	
+	buff = 0.078*f_gN(W,P[0],1,Q2)*f_PiN(W,P,I,Q2)*Gamma_tot(W,P,I)*P[0]*exp(1.0_i*phi_P11(W,Q2))*(k_mod(W, Q2)/k(W))*exp(-Q2/(6*0.229*0.229))*(P[0]*P[0] - W*W + 1.0_i*P[0]*Gamma_tot(W,P,I))/((pow(P[0]*P[0] - W*W,2) + pow(P[0]*Gamma_tot(W,P,I),2))*sqrt(3)); 	
 	
 	P.clear(); I.clear();
 	 
@@ -40,9 +41,9 @@ void P11_table(vector<vector<double>>& Result, vector<double>& WQ2, int l_max)
 	vector<double> buff;
 	double c; c = sqrt(2);
 	
-	for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
+	for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])
 	{
-		for(double Q2 = WQ2[3]; Q2 <= WQ2[4]; Q2 = Q2 + WQ2[5])
+		for(double W = WQ2[0]; W <= WQ2[1]; W = W + WQ2[2])
 		{
 			M = mult_P11(W, Q2);		
 			
